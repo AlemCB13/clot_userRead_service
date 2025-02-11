@@ -1,4 +1,4 @@
-const { getUserDB } = require("../models/userModel");
+const { getUserDB, getAllUsersDB } = require("../models/userModel");
 
 const getUser = async (req, res) => {
   try {
@@ -18,6 +18,15 @@ const getUser = async (req, res) => {
     res.status(500).json({ message: "Error al obtener el usuario" });
   }
 };
+const getAllUsers = async (req, res) => {
+    try {
+      const users = await getAllUsersDB();
+      res.status(200).json(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error al obtener los usuarios" });
+    }
+};
 
-module.exports = { getUser };
+module.exports = { getUser , getAllUsers};
 

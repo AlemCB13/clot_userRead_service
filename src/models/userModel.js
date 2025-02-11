@@ -1,4 +1,5 @@
 const mysql = require("mysql2/promise");
+const { get } = require("../routes");
 
 class Database {
   constructor() {
@@ -18,10 +19,17 @@ class Database {
     const [rows] = await this.pool.query("SELECT * FROM users WHERE id = ?", [id]);
     return rows[0];
   }
+
+    async getAllUsers() {
+        const [rows] = await this.pool.query("SELECT * FROM users");
+        return rows;
+    }
+
 }
 
 const dbInstance = new Database();
 
 module.exports = {
   getUserDB: (id) => dbInstance.getUser(id),
+  getAllUsersDB: () => dbInstance.getAllUsers(),
 };

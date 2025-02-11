@@ -6,12 +6,9 @@ services:
       - "3001:3001"
     env_file:
       - .env
-    depends_on:
-      - db
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: dbpassw0rd
-      MYSQL_DATABASE: clot_users
-    ports:
-      - "3307:3306"
+    networks:
+      - clot_usercreate_service_default
+
+networks:
+  clot_usercreate_service_default:
+    external: true
